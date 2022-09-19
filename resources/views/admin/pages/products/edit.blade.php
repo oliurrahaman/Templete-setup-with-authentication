@@ -44,7 +44,7 @@ Unit
                                     <option value="">Select category</option>
                                     @foreach ($category as $cat)
 
-                                    <option value="{{ $cat->id }}">{{ $cat->catName }}</option>
+                                    <option value="{{ $cat->id }} "{{ $product->category== $cat->id ? 'selected' : ''}}>{{ $cat->catName }}</option>
 
                                     @endforeach
 
@@ -92,7 +92,7 @@ Unit
                     name="unit">
                     <option value="">Select Unit</option>
                         @foreach ($unit as $unit)
-                    <option value="{{ $unit->id }}">{{ $unit->name }}</option>
+                    <option value="{{ $unit->id }}" {{ $product->unit== $unit->id ? 'selected' : ''}}>{{ $unit->name }}</option>
                     @endforeach
 
                         </select>
@@ -119,14 +119,14 @@ Unit
                             <div class="input-group mb-3 col">
                         <span class="input-group-text bg-light text-black font-weight-bold">Details:</span>
                         <div class="md-form">
-                            <textarea name="Details" value="{{old('Details',$product->Details ) }}"  id="Details" class="md-textarea form-control">{{ old('Details') }}</textarea>
+                            <textarea type="text" value="{{old('Details',$product->Details ) }}" id="Details" class="form-control" name="Details">{{ $product->Details }}</textarea>
 
                         </div>
                    </div>
 
                         <div class="input-group mb-3 col">
 
-                            <select name="country" id="country" value="{{ $product->country }}" value="{{ old('country') }}"  class="form-control h-50 select2 @error('country')
+                            <select name="country" id="country" value="{{ $product->country }}" value="{{ $product->country ? 'selected' : ''}}"  class="form-control h-50 select2 @error('country')
                             is-invalid
                              @enderror" >
                              @error('country')
@@ -457,7 +457,7 @@ Unit
 
 
                         <div class="mt-5">
-                            <input type="submit" value="save" class="btn btn-success">
+                            <input type="submit" value="Update" class="btn btn-success">
                        <a class="btn btn-secondary" href="{{ url('admin/product') }}">Cancel</a>
                         </div>
 
