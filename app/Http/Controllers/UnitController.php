@@ -16,6 +16,7 @@ class UnitController extends Controller
     public function index()
     {
         $unit= unit::all();
+
         return view('admin.pages.unit.index')->with('unit', $unit);
     }
 
@@ -39,6 +40,7 @@ class UnitController extends Controller
     {
         $input= $request->all();
         unit::create($input);
+
         return redirect('admin/unit')->with('success','Unit created successfully');
     }
 
