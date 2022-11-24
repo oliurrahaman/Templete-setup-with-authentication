@@ -7,8 +7,10 @@ use Illuminate\Http\Request;
 class dashboardController extends Controller
 {
 
-    public function dashboard()
+    public function dashboard(Request $request)
     {
-        return view('admin.pages.dashboard');
+
+
+        return view('backend.pages.dashboard');
     }
 }

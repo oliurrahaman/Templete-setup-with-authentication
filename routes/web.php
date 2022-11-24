@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\CatController;
+use App\Http\Controllers\Backend\categoryController;
+use App\Http\Controllers\Backend\TestimonialController;
 use App\Http\Controllers\dashboardController;
+use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\UnitController;
+use App\Http\Controllers\Backend\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,16 +18,22 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::prefix('')->group(function(){
+    Route::get('/', [HomeController::class, 'home'])->name('home');
+    Route::get('/shop', [HomeController::class, 'shopPage'])->name('shop.page');
+    Route::get('/single-product/{product_slug}', [HomeController::class, 'productDetails'])->name('productdetail.page');
+});
 
-Route::prefix('admin/')->group(function(){
-    Route::get('login', [LoginController::class, 'loginPage'])->name('admin.loginpage');
-    Route::post('login', [LoginController::class, 'login'])->name('admin.login');
-    Route::get('logout', [LoginController::class, 'logout'])->name('admin.logout');
+Route::prefix('backend/')->group(function(){
+    Route::get('login', [LoginController::class, 'loginPage'])->name('backend.loginpage');
+    Route::post('login', [LoginController::class, 'login'])->name('backend.login');
+    Route::get('logout', [LoginController::class, 'logout'])->name('backend.logout');
     Route::middleware(['auth'])->group(function(){
-  Route::get('dashboard',[dashboardController::class, 'dashboard'])->name('admin.dashboard');
-  Route::resource('product', ProductController::class);
-  Route::resource('unit',UnitController::class);
-  Route::resource('category',CatController::class);
+  Route::get('dashboard',[dashboardController::class, 'dashboard'])->name('backend.dashboard');
+
+  Route::resource('category',categoryController::class);
+  Route::resource('testimonial',TestimonialController::class);
+  Route::resource('products',ProductController::class);
 });
 });
 

@@ -10,7 +10,7 @@ class LoginController extends Controller
 {
     public function loginPage()
     {
-        return view('admin.pages.auth.login');
+        return view('backend.pages.auth.login');
     }
 
     public function login(Request $request)
@@ -28,7 +28,7 @@ class LoginController extends Controller
         // login attempt if success then redirect dashboard
         if(Auth::attempt($credentials, $request->filled('remember'))){
             $request->session()->regenerate();
-            return redirect()->intended('admin/dashboard');
+            return redirect()->intended('backend/dashboard');
         }
 
         // return error message
@@ -45,6 +45,6 @@ class LoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('admin.login');
+        return redirect()->route('backend.login');
     }
 }
